@@ -1,5 +1,7 @@
 #Moonlight Embedded
 
+This branch has changes allowing the code to be compiled on Raspbian Wheezy.
+
 Moonlight is an open source implementation of NVIDIA's GameStream, as used by the NVIDIA Shield,
 but built for Linux/OSX/Windows.
 
@@ -88,6 +90,17 @@ Install package using the following command
 pacman -Sy moonlight-embedded
 ```
 
+##Compile (these instructions for compiling on Raspbian and are slightly different from upstream)
+
+* Install dependencies ```sudo apt-get install cmake libopus-dev libexpat1-dev libjs-jquery libssl-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev```
+* Raspbian Wheezy (Stable) doesn't ship with libevdev which is a requirement. Download and install the libevdev packages from the Raspbian "Jessie" repos:
+```
+wget http://archive.raspbian.org/raspbian/pool/main/libe/libevdev/libevdev-dev_1.4.2%2bdfsg-1_armhf.deb
+wget http://archive.raspbian.org/raspbian/pool/main/libe/libevdev/libevdev-tools_1.4.2%2bdfsg-1_armhf.deb
+wget http://archive.raspbian.org/raspbian/pool/main/libe/libevdev/libevdev2_1.4.2%2bdfsg-1_armhf.deb
+sudo dpkg -i libevdev*
+```
+=======
 ##Compile and install
 
 * Download and extract Moonlight Embedded from release or git clone
