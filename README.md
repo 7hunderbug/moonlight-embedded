@@ -62,6 +62,7 @@ For a demo see this [video](https://www.youtube.com/watch?v=XRW6O0bSHNw).
 	-localaudio Play audio locally
 
 	Use ctrl-c to exit application
+
 ##Compile (these instructions for compiling on Raspbian and are slightly different from upstream)
 
 * Install dependencies ```sudo apt-get install cmake libopus-dev libexpat1-dev libjs-jquery libssl-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev```
@@ -72,7 +73,6 @@ wget http://archive.raspbian.org/raspbian/pool/main/libe/libevdev/libevdev-tools
 wget http://archive.raspbian.org/raspbian/pool/main/libe/libevdev/libevdev2_1.4.2%2bdfsg-1_armhf.deb
 sudo dpkg -i libevdev*
 ```
-
 =======
 ##Compile and install
 
