@@ -10,7 +10,7 @@ list(APPEND SRC_LIST ./src/video/fake.c)
 aux_source_directory(./third_party/moonlight-common-c/limelight-common SRC_LIST)
 aux_source_directory(./third_party/moonlight-common-c/limelight-common/OpenAES SRC_LIST)
 
-include_directories(./third_party/moonlight-common-c)
+include_directories(./third_party/moonlight-common-c ./opus-1.1)
 
 set(MOONLIGHT_DEFINITIONS)
 
@@ -19,7 +19,7 @@ find_package(CURL REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_package(EXPAT REQUIRED)
 find_package(ALSA REQUIRED)
-find_package(Opus REQUIRED)
+#find_package(Opus REQUIRED)
 find_package(Broadcom)
 find_package(Freescale)
 
@@ -27,6 +27,9 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(EVDEV REQUIRED libevdev)
 pkg_check_modules(AVAHI REQUIRED avahi-client)
 pkg_check_modules(UDEV REQUIRED libudev)
+
+ADD_LIBRARY(opus-1.1 STATIC IMPORTED)
+SET_TARGET_PROPERTIES(opus-1.1 PROPERTIES IMPORTED_LOCATION ../opus-1.1/.libs/libopus.a)
 
 if(BROADCOM_FOUND)
   aux_source_directory(./third_party/ilclient SRC_LIST)
@@ -55,8 +58,8 @@ if(FREESCALE_FOUND)
 endif()
 
 set_property(TARGET moonlight PROPERTY COMPILE_DEFINITIONS ${MOONLIGHT_DEFINITIONS})
-include_directories(./third_party/moonlight-common-c ${OPUS_INCLUDE_DIRS} ${EVDEV_INCLUDE_DIRS} ${AVAHI_INCLUDE_DIRS} ${UDEV_INCLUDE_DIRS})
-target_link_libraries (moonlight ${CMAKE_THREAD_LIBS_INIT} ${CURL_LIBRARIES} ${OPENSSL_LIBRARIES} ${EXPAT_LIBRARIES} ${EVDEV_LIBRARIES} ${ALSA_LIBRARY} ${OPUS_LIBRARY} ${AVAHI_LIBRARIES} ${UDEV_LIBRARIES} ${CMAKE_DL_LIBS})
+include_directories(./third_party/moonlight-common-c ./opus-1.1/include ${EVDEV_INCLUDE_DIRS} ${AVAHI_INCLUDE_DIRS} ${UDEV_INCLUDE_DIRS})
+target_link_libraries (moonlight ${CMAKE_THREAD_LIBS_INIT} ${CURL_LIBRARIES} ${OPENSSL_LIBRARIES} ${EXPAT_LIBRARIES} ${EVDEV_LIBRARIES} ${ALSA_LIBRARY} opus-1.1 ${AVAHI_LIBRARIES} ${UDEV_LIBRARIES} ${CMAKE_DL_LIBS})
 
 include(${CMAKE_ROOT}/Modules/GNUInstallDirs.cmake)
 install(TARGETS moonlight DESTINATION ${CMAKE_INSTALL_BINDIR})
