@@ -2,7 +2,7 @@ project(moonlight-embedded C)
 cmake_minimum_required(VERSION 2.8.9)
 
 SET(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
-SET(CMAKE_C_FLAGS "-std=gnu99")
+SET(CMAKE_C_FLAGS "-std=gnu99 -O2 -mcpu=cortex-a7 -mfpu=neon-vfpv4 -mfloat-abi=hard -funsafe-math-optimizations -mtune=cortex-a7")
 
 aux_source_directory(./src SRC_LIST)
 list(APPEND SRC_LIST ./src/video/fake.c)
@@ -59,7 +59,7 @@ endif()
 
 set_property(TARGET moonlight PROPERTY COMPILE_DEFINITIONS ${MOONLIGHT_DEFINITIONS})
 include_directories(./third_party/moonlight-common-c ./opus-1.1/include ${EVDEV_INCLUDE_DIRS} ${AVAHI_INCLUDE_DIRS} ${UDEV_INCLUDE_DIRS})
-target_link_libraries (moonlight ${CMAKE_THREAD_LIBS_INIT} ${CURL_LIBRARIES} ${OPENSSL_LIBRARIES} ${EXPAT_LIBRARIES} ${EVDEV_LIBRARIES} ${ALSA_LIBRARY} opus-1.1 ${AVAHI_LIBRARIES} ${UDEV_LIBRARIES} ${CMAKE_DL_LIBS})
+target_link_libraries (moonlight ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS} ${CURL_LIBRARIES} ${OPENSSL_LIBRARIES} ${EXPAT_LIBRARIES} ${EVDEV_LIBRARIES} ${ALSA_LIBRARY} ${AVAHI_LIBRARIES} ${UDEV_LIBRARIES} opus-1.1 m)
 
 include(${CMAKE_ROOT}/Modules/GNUInstallDirs.cmake)
 install(TARGETS moonlight DESTINATION ${CMAKE_INSTALL_BINDIR})
